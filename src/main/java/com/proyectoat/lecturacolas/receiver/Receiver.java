@@ -11,7 +11,7 @@ public class Receiver {
 
 	private CountDownLatch latch = new CountDownLatch(1);
 	
-	public void recibeMensaje(Object modeloPrueba) {
+	public void recibeMensaje(ModeloPrueba modeloPrueba) {
 		System.out.println("Recibido <" + modeloPrueba + ">");
 		latch.countDown();
 	}
