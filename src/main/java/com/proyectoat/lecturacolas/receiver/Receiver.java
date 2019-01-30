@@ -1,6 +1,7 @@
 package com.proyectoat.lecturacolas.receiver;
 
-import org.springframework.jms.annotation.JmsListener;
+import java.util.concurrent.CountDownLatch;
+
 import org.springframework.stereotype.Component;
 
 import com.proyectoat.lecturacolas.model.ModeloPrueba;
@@ -8,10 +9,15 @@ import com.proyectoat.lecturacolas.model.ModeloPrueba;
 @Component
 public class Receiver {
 
+	private CountDownLatch latch = new CountDownLatch(1);
 	
-	@JmsListener(destination = "cola_mensajes")
-	public void recibeMensaje(ModeloPrueba modeloPrueba) {
+	public void recibeMensaje(Object modeloPrueba) {
 		System.out.println("Recibido <" + modeloPrueba + ">");
+		latch.countDown();
+	}
+	
+	public CountDownLatch getLatch() {
+		return latch;
 	}
 	
 }

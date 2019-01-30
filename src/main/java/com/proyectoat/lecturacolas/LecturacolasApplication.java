@@ -1,42 +1,68 @@
 package com.proyectoat.lecturacolas;
 
-import javax.jms.ConnectionFactory;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.config.JmsListenerContainerFactory;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
+
+import com.proyectoat.lecturacolas.receiver.Receiver;
+
+
 
 
 @SpringBootApplication
-@EnableJms
 public class LecturacolasApplication {
 
+	static final String topicExchangeName = "input_topic";
+	
+	static final String queueName = "cola_mensajes";
 	
 	@Bean
-	public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory, 
-													DefaultJmsListenerContainerFactoryConfigurer configurer){
-		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-		configurer.configure(factory, connectionFactory);
-		return factory;
+	Queue queue() {
+		return new Queue(queueName, true);
+	}
+	
+	@Bean
+	TopicExchange exchange() {
+		return new TopicExchange(topicExchangeName);
+	}
+	
+	@Bean
+	Binding binding(Queue queue, TopicExchange exchange) {
+		return BindingBuilder.bind(queue).to(exchange).with("cassandra.#");
+	}
+	
+	@Bean
+	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, 
+			MessageListenerAdapter listenerAdapter) {
+		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		container.setConnectionFactory(connectionFactory);
+		container.setQueueNames(queueName);
+		container.setMessageListener(listenerAdapter);
 		
+		
+		return container;
 	}
 	
 	@Bean
-	public MessageConverter jacksonJmsMessageConverter() {
-		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");
-        return converter;
+	MessageListenerAdapter listenerAdapter(Receiver receiver) {
+		MessageListenerAdapter adapter = new MessageListenerAdapter(receiver, "recibeMensaje");
+		adapter.setMessageConverter(getJsonMessageConverter());
+		return adapter;
 	}
 	
-	
+	public MessageConverter getJsonMessageConverter() {
+	    return new Jackson2JsonMessageConverter();
+	  }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LecturacolasApplication.class, args);
