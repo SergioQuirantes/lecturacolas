@@ -15,7 +15,9 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyectoat.lecturacolas.model.ModeloPrueba;
 import com.proyectoat.lecturacolas.receiver.Receiver;
 
@@ -64,23 +66,7 @@ public class LecturacolasApplication {
 	}
 	
 	public MessageConverter getJsonMessageConverter() {
-        Jackson2JsonMessageConverter jackson2JsonMessageConverter = new Jackson2JsonMessageConverter();
-        jackson2JsonMessageConverter.setClassMapper(new ClassMapper() {
-			
-			@Override
-			public Class<?> toClass(MessageProperties properties) {
-				// TODO Auto-generated method stub
-				return ModeloPrueba.class;
-			}
-			
-			@Override
-			public void fromClass(Class<?> clazz, MessageProperties properties) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-        
-	    return jackson2JsonMessageConverter;
+	    return new Jackson2JsonMessageConverter();
 	  }
 	
 	public static void main(String[] args) {
