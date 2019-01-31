@@ -1,5 +1,5 @@
 package com.proyectoat.lecturacolas.config;
-/*
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
@@ -11,7 +11,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
 	@Override
 	protected String getKeyspaceName() {
-		return "key";
+		return "cassandra_keyspace";
 	}
 	
 	@Bean
@@ -28,4 +28,4 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 	}
 	
 	
-}*/
+}

@@ -1,8 +1,31 @@
 package com.proyectoat.lecturacolas.model;
 
+import org.springframework.data.cassandra.core.cql.Ordering;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+
+@Table
 public class ModeloPrueba {
 	
+	@PrimaryKeyColumn(
+			name = "ID",
+			ordinal = 0,
+			type = PrimaryKeyType.CLUSTERED,
+			ordering = Ordering.DESCENDING
+			)
+	private Long id;
+	
+	@PrimaryKeyColumn(
+			name = "title",
+			ordinal = 1,
+			type = PrimaryKeyType.PARTITIONED
+			)
 	private String title;
+	
+	@Column("autor")
 	private String autor;
 	
 	public ModeloPrueba() {
