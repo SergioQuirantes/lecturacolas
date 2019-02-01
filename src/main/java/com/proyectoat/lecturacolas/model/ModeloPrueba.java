@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 
-@Table
+@Table("modeloprueba")
 public class ModeloPrueba {
 	
 	@PrimaryKeyColumn(
