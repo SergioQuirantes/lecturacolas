@@ -1,5 +1,7 @@
 package com.proyectoat.lecturacolas.model;
 
+import java.util.UUID;
+
 import org.springframework.data.cassandra.core.cql.Ordering;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
@@ -16,7 +18,7 @@ public class ModeloPrueba {
 			type = PrimaryKeyType.CLUSTERED,
 			ordering = Ordering.DESCENDING
 			)
-	private Long id;
+	private UUID id;
 	
 	@PrimaryKeyColumn(
 			name = "title",
@@ -34,6 +36,16 @@ public class ModeloPrueba {
 	public ModeloPrueba(String title, String autor) {
 		this.title = title;
 		this.autor = autor;
+	}
+
+	
+	
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -55,7 +67,7 @@ public class ModeloPrueba {
 
 	@Override
 	public String toString() {
-		return String.format("Libro{titulo=%s, autor=%s}", getTitle(), getAutor());
+		return String.format("Libro{id=%s, titulo=%s, autor=%s}", getId(), getTitle(), getAutor());
 	}
 	
 	
