@@ -33,4 +33,12 @@ public class CassandraService {
 	public List<ModeloPrueba> getModeloPorAutor(String nombreAutor) {
 		return modelRepository.findByAutor(nombreAutor);
 	}
+	
+	public void deleteModeloPorTitulo(String titulo) {
+		modelRepository.deleteByTitle(titulo);
+	}
+	
+	public void deleteModeloPorAutor(String autor) {
+		modelRepository.deleteByAutor(autor);
+	}
 }

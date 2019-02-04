@@ -2,32 +2,33 @@ package com.proyectoat.lecturacolas.model;
 
 import java.util.UUID;
 
-import org.springframework.data.cassandra.core.cql.Ordering;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
-import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 
-@Table("modeloprueba")
+@Table(value = "modeloprueba")
 public class ModeloPrueba {
 	
 	@PrimaryKeyColumn(
-			name = "ID",
-			ordinal = 0,
-			type = PrimaryKeyType.CLUSTERED,
-			ordering = Ordering.DESCENDING
+			name = "id",
+			ordinal = 2,
+			type = PrimaryKeyType.CLUSTERED
 			)
 	private UUID id;
 	
 	@PrimaryKeyColumn(
 			name = "title",
-			ordinal = 1,
+			ordinal = 0,
 			type = PrimaryKeyType.PARTITIONED
 			)
 	private String title;
 	
-	@Column("autor")
+	@PrimaryKeyColumn(
+			name = "autor",
+			ordinal = 1,
+			type = PrimaryKeyType.PARTITIONED			
+			)
 	private String autor;
 	
 	public ModeloPrueba() {
