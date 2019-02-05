@@ -25,6 +25,12 @@ public class CassandraService {
 		modelRepository.save(modeloPrueba);
 	}
 	
+	
+	public List<ModeloPrueba> getAll(){
+		return modelRepository.findAll();
+	}
+	
+	
 	public ModeloPrueba getModeloPorTitulo(String titulo) {
 		
 		Optional<ModeloPrueba> modelo = modelRepository.findById(titulo);
@@ -49,6 +55,10 @@ public class CassandraService {
 			modelRepository.save(modelo);
 		}
 		
+	}
+	
+	public void deleteAll() {
+		modelRepository.deleteAll();
 	}
 	
 	public void deleteModeloPorTitulo(String titulo) {
