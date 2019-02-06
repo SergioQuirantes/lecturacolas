@@ -10,10 +10,10 @@ public class ModeloPrueba {
 	
 	@Id
 	@Column("title")
-	private String title;
+	private String title; //titulo de un libro
 	
 	@Column("autor")
-	private String autor;
+	private String autor; //autor del libro
 	
 	public ModeloPrueba() {
 	}

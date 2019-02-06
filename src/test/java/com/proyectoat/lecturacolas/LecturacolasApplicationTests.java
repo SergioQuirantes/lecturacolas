@@ -18,11 +18,11 @@ public class LecturacolasApplicationTests {
 	@Autowired
 	private CassandraService cassandraService;
 	
-	
+	/**
+	 * Función de test de la base de datos
+	 * */
 	@Test
 	public void contextLoads() {
-		
-		System.out.println(cassandraService.getModeloPorTitulo("Lore"));
 		
 		System.out.println("Intentando guardar modelos");
 		cassandraService.saveModelo(new ModeloPrueba("alatriste", "Reverte"));
@@ -31,20 +31,22 @@ public class LecturacolasApplicationTests {
 		cassandraService.saveModelo(new ModeloPrueba("Toledana", "Reverte"));
 		System.out.println("Modelos guardado");
 		
+		//filtrado de los modelos por autor
 		List<ModeloPrueba> lista = cassandraService.getModeloPorAutor("Reverte");
 		System.out.println("Los libros de Reverte son: ");
 		for(ModeloPrueba modelo : lista) {
 			System.out.println(modelo);
 		}
 		
-		System.out.println("Actualizaremos dos libros");
-		cassandraService.updateModelo(new ModeloPrueba("Calendariode", "Revierte"));
+		System.out.println("Actualizaremos un libro");
+		cassandraService.updateModelo(new ModeloPrueba("Calendariode", "Revierte")); //actualizacion del autor de un libro
 		List<ModeloPrueba> lista2 = cassandraService.getModeloPorAutor("Reverte");
 		System.out.println("Los libros de Reverte son: ");
 		for(ModeloPrueba modelo : lista2) {
 			System.out.println(modelo);
 		}
 		
+		//eliminacion de los modelos segun el autor
 		System.out.println("El modelo se eliminara");
 		cassandraService.deleteModeloPorAutor("Reverte");
 		System.out.println("Modelo borrado");

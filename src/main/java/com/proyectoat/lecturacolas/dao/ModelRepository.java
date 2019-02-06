@@ -12,6 +12,6 @@ import com.proyectoat.lecturacolas.model.ModeloPrueba;
 public interface ModelRepository extends CassandraRepository<ModeloPrueba, String>{
 		
 	@AllowFiltering
-	List<ModeloPrueba> findByAutor(String autor);
+	List<ModeloPrueba> findByAutor(String autor); //creada para obtener libros por autor
 	
 }
