@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  
+  #Contenedor del broker 
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "host-rabbit"
+    container_name: "cola-rabbit"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    tty: true
+    volumes:
+    - ./definitions.json:/opt/definitions.json:ro #Se copia el json donde se define el broker (cola, topic y binding incluidos)
+    - ./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro #fichero de configuracion que indica donde buscar las definiciones
+  
+  #Contenedor principal de cassandra
+  cassandra:
+    image: "cassandra:latest"
+    container_name: "cassandra_db"
+    ports:
+      - "9042:9042"
+    
+  #Contenedor creado para crear keyspace una vez levantado el contenedor anterior
+  cassandra-load-keyspace:
+    container_name: "cassandra-load-keyspace"
+    image: "cassandra:latest"
+    depends_on:
+      - cassandra #No levantará hasta que el contenedor "cassandra" lo haya hecho
+    volumes:
+      - ./init.cql:/init.cql #Se copia el fichero dentro del contenedor
+    command: bash -c "sleep 20 && cqlsh cassandra -f /init.cql" #se elige un tiempo de espera (para que
+                                                                #el contenedor anterior se levante) y luego se ejecuta el script
+    
+   
+   
