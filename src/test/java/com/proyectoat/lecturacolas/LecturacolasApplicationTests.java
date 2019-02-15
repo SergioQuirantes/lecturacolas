@@ -24,19 +24,6 @@ public class LecturacolasApplicationTests {
 	@Test
 	public void contextLoads() {
 		
-		System.out.println("Intentando guardar modelos");
-		
-		System.out.println("Modelos guardado");
-		
-		//filtrado de los modelos por autor
-		System.out.println("Los libros de Reverte son: ");
-		
-		System.out.println("Actualizaremos un libro");
-		System.out.println("Los libros de Reverte son: ");
-		
-		//eliminacion de los modelos segun el autor
-		System.out.println("El modelo se eliminara");
-		System.out.println("Modelo borrado");
 	}
 
 }

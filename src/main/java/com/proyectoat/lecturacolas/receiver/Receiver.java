@@ -34,7 +34,7 @@ public class Receiver {
 		if(sensor2.getMonoxido_carbono() == null) {
 			sensor2.setMonoxido_carbono("");
 		}
-		
+		System.out.println(sensor2);
 		cassandraService.saveModelo(sensor2);
 		
 	}
