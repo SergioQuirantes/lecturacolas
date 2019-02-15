@@ -1,13 +1,12 @@
 package com.proyectoat.lecturacolas.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyectoat.lecturacolas.dao.ModelRepository;
-import com.proyectoat.lecturacolas.model.ModeloPrueba;
+import com.proyectoat.lecturacolas.model.Sensor;
 
 
 /**
@@ -39,8 +38,8 @@ public class CassandraService {
 	 * @param modeloPrueba
 	 *  
 	 */
-	public void saveModelo(ModeloPrueba modeloPrueba) {
-		modelRepository.save(modeloPrueba);
+	public void saveModelo(Sensor sensor) {
+		modelRepository.save(sensor);
 	}
 	
 	/**
@@ -48,50 +47,20 @@ public class CassandraService {
 	 * 
 	 * @return List<ModeloPrueba>
 	 */
-	public List<ModeloPrueba> getAll(){
+	public List<Sensor> getAll(){
 		return modelRepository.findAll();
 	}
 	
-	/**
-	 * Busqueda de objeto por el atributo "titulo"
-	 * 
-	 * @param titulo
-	 * @return ModeloPrueba o null si no existe objeto con ese titulo
-	 */
-	public ModeloPrueba getModeloPorTitulo(String titulo) {
-		
-		Optional<ModeloPrueba> modelo = modelRepository.findById(titulo); //busca el objeto por ID (el titulo es el ID del modelo)
-		if(modelo.isPresent()) {
-			return modelo.get(); //Si está el objeto de devuelve
-		}
-		return null; //si no, un objeto nulo
-	}
 	
-	/**
-	 * Recupera todos los objetos de la base de datos que tengan el valor de autor pasado por parametro
-	 * 
-	 * @param nombreAutor
-	 * @return List<ModeloPrueba>
-	 */
-	public List<ModeloPrueba> getModeloPorAutor(String nombreAutor) {
-		return modelRepository.findByAutor(nombreAutor);
-	}
+	
 	
 	/**
 	 * Actualiza la información de un modelo ya existente con la del objeto por parametro
 	 * 
 	 * @param modeloActualizado
 	 */
-	public void updateModelo(ModeloPrueba modeloActualizado) {
-		Optional<ModeloPrueba> modeloActualizable = modelRepository.findById(modeloActualizado.getTitle()); //buscamos primero si el objeto está en BD
-		
-		if(modeloActualizable.isPresent()) {
-			ModeloPrueba modelo = modeloActualizable.get(); //si está, lo obtenemos
-			modelo.setAutor(modeloActualizado.getAutor()); //le insetamos los nuevos datos
+	public void updateModelo(Sensor modeloActualizado) {
 			
-			modelRepository.save(modelo); //y lo guardamos
-		}
-		//si no está, no se hace nada		
 	}
 	
 	/**
@@ -101,26 +70,7 @@ public class CassandraService {
 		modelRepository.deleteAll();
 	}
 	
-	/**
-	 * Borra el objeto de la base de datos con ese título
-	 * 
-	 * @param titulo
-	 */
-	public void deleteModeloPorTitulo(String titulo) {
-		modelRepository.deleteById(titulo); //se borra por ID (el titulo es el ID del modelo)
-	}
 	
-	/**
-	 * Borra todos los objetos de la base de datos con el valor de autor pasado por parametro
-	 * 
-	 * @param autor
-	 */
-	public void deleteModeloPorAutor(String autor) {
-		
-		List<ModeloPrueba> librosAutor = getModeloPorAutor(autor); //obtiene todos los libros por autor
-		
-		for(ModeloPrueba modeloPrueba : librosAutor) {
-			modelRepository.deleteById(modeloPrueba.getTitle()); //los borra 1 a 1 por ID
-		}
-	}
+	
+	
 }

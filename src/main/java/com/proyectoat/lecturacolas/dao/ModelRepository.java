@@ -1,17 +1,11 @@
 package com.proyectoat.lecturacolas.dao;
 
-import java.util.List;
-
-import org.springframework.data.cassandra.repository.AllowFiltering;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
 
-import com.proyectoat.lecturacolas.model.ModeloPrueba;
+import com.proyectoat.lecturacolas.model.Sensor;
 
 @Repository("modelRepository")
-public interface ModelRepository extends CassandraRepository<ModeloPrueba, String>{
-		
-	@AllowFiltering
-	List<ModeloPrueba> findByAutor(String autor); //creada para obtener libros por autor
-	
+public interface ModelRepository extends CassandraRepository<Sensor, String>{
+			
 }
