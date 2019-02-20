@@ -46,9 +46,9 @@ Una vez todo esté levantado, podemos acceder a la UI de RabbitMQ mediante el en
 - **Properties**: content_type=application/json
 - **Payload**: Texto escrito en formato JSON donde definimos los valores de los atributos de un objeto del modelo.
 
-`{"nombre-de-atributo1":"valor-de-atributo1, "nombre-de-atributo2:valor-de-atributo2,..."}`
+`{"nombre-de-atributo1":"valor-de-atributo1", "nombre-de-atributo2":"valor-de-atributo2",..."}`
 
-Los nombres de atributo deben coincidir exactamente con el nombre de los atributos de la clase del modelo. Los atributos que se deben indicar son: **nombreSensor**, **humedad**, **temperatura**, **dioxido_carbono**, **monoxido_carbono**. El atributo **momentoCreacion** se crea de forma automatica al crear el nuevo objeto del modelo. 
+Los nombres de atributo deben coincidir exactamente con el nombre de los atributos de la clase del modelo. Los atributos que se deben indicar son: **nombreSensor**, **humedad**, **temperatura**, **dioxido_carbono**, **monoxido_carbono** (Siendo todos String). El atributo **momentoCreacion** se crea de forma automatica al crear el nuevo objeto del modelo. 
 Mínimo, debe indicarse el atributo **nombreSensor**, pues si no, el mensaje será ignorado y no se introducirá en la base de datos. Si no fuese ignorado, produciría una excepción. El resto de valores pueden ignorarse, se introducirían como cadenas vacías.
 Una vez escrito el mensaje, se le da a publicar. La aplicación, la cual suponemos que está ejecutando, leerá de la cola los datos, los convertirá a un formato JSON (debido a que la aplicación recibe el mensaje en cadena de bytes), lo enviará a la función receptora, la cual convertirá el mensaje a formato de modelo y, si el nombre del sensor no está vacío, lo introducirá en la base de datos.
 
