@@ -30,7 +30,7 @@ services:
       - cassandra #No levantará hasta que el contenedor "cassandra" lo haya hecho
     volumes:
       - ./init.cql:/init.cql #Se copia el fichero dentro del contenedor
-    command: bash -c "sleep 20 && cqlsh cassandra -f /init.cql" #se elige un tiempo de espera (para que
+    command: bash -c "sleep 30 && cqlsh cassandra -f /init.cql" #se elige un tiempo de espera (para que
                                                                 #el contenedor anterior se levante) y luego se ejecuta el script
     
    

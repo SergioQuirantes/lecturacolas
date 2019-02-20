@@ -52,17 +52,6 @@ public class CassandraService {
 	}
 	
 	
-	
-	
-	/**
-	 * Actualiza la información de un modelo ya existente con la del objeto por parametro
-	 * 
-	 * @param modeloActualizado
-	 */
-	public void updateModelo(Sensor modeloActualizado) {
-			
-	}
-	
 	/**
 	 * Borra todos los objetos de la base de datos
 	 */

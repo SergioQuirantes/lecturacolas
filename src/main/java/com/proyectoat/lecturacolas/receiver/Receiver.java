@@ -22,20 +22,22 @@ public class Receiver {
 		ObjectMapper mapper = new ObjectMapper();//objeto para hacer la conversión del formato la información del mensaje al modelo
 		Sensor sensor2 = mapper.convertValue(sensor, Sensor.class); //traduce del formato del objeto al modelo
 		
-		if(sensor2.getHumedad() == null) {
-			sensor2.setHumedad("");
+		if(sensor2.getNombreSensor() != null) {
+			if(sensor2.getHumedad() == null) {
+				sensor2.setHumedad("");
+			}
+			if(sensor2.getTemperatura() == null) {
+				sensor2.setTemperatura("");
+			}		
+			if(sensor2.getDioxido_carbono() == null) {
+				sensor2.setDioxido_carbono("");
+			}
+			if(sensor2.getMonoxido_carbono() == null) {
+				sensor2.setMonoxido_carbono("");
+			}
+			System.out.println(sensor2);
+			cassandraService.saveModelo(sensor2);
 		}
-		if(sensor2.getTemperatura() == null) {
-			sensor2.setTemperatura("");
-		}		
-		if(sensor2.getDioxido_carbono() == null) {
-			sensor2.setDioxido_carbono("");
-		}
-		if(sensor2.getMonoxido_carbono() == null) {
-			sensor2.setMonoxido_carbono("");
-		}
-		System.out.println(sensor2);
-		cassandraService.saveModelo(sensor2);
 		
 	}
 	
