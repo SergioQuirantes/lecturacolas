@@ -64,4 +64,5 @@ y una vez dentro ejecutamos el comando:
 `SELECT * FROM cassandra_keyspace.sensor;`
 
 para ver todos los datos que se han introducido dentro de la tabla.
+
 Si fuera necesario, dentro de la aplicación se pueden definir servicios CRUD más allá del guardado de datos.
