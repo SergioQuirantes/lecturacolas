@@ -17,8 +17,8 @@ La tabla será creada por la aplicación al iniciar, siempre y cuando ésta no e
 
 #### Aplicacion Java: lecturacolas
 Ésta aplicación, creada con spring boot, utilizará éste framework, el de Spring Data con dependencias de Cassandra y Spring AMQP para asociar a la cola de RabbitMQ. 
-Poseerá una clase de configuración de RabbitMQ, rabbitmqConfig.java, donde se definirá a qué cola conectará y leerá y qué función deberá tratar los datos leídos, así como otra que se encargará de convertir los datos recibidos en datos legibles por la aplicación.
-Poseerá otra clase, `Sensor.java` que defina el modelo de datos que se guardará en la base de datos, y otras dos clases, `SensorRepository.java` y `CassandraService.java`, para manejar los datos entre la base de datos y la aplicación.
+Poseerá una clase de configuración de RabbitMQ, `rabbitmqConfig.java`, donde se definirá a qué cola conectará y leerá y qué función deberá tratar los datos leídos, así como otra que se encargará de convertir los datos recibidos en datos legibles por la aplicación.
+Poseerá otra clase, `Sensor.java` que defina el modelo de datos que se guardará en la base de datos, y otras dos clases, `SensorRepository.java` y `CassandraService.java`, para manejar la persistencia de los datos.
 La última clase, `Receiver.java`, se ocupará de convertir los datos obtenidos de la cola en datos del modelo e insertarlos dentro de la base de datos.
 
 ## Ejecución del proyecto
@@ -61,3 +61,4 @@ y una vez dentro ejecutamos el comando:
 `SELECT * FROM cassandra_keyspace.sensor;`
 
 para ver todos los datos que se han introducido dentro de la tabla.
+Si fuera necesario, dentro de la aplicación se pueden definir servicios CRUD más allá del guardado de datos.
