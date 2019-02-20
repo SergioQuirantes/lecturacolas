@@ -11,7 +11,7 @@ La creacion del servidor del broker se llevará a cabo mediante un `docker-compo
 Dentro del fichero JSON se especifica la cola que queramos crear, llamada **cola_mensajes**, el exchange y su tipo, llamado **input_topic**, y el enlace entre los dos, en el cual se indicará el filtro **cassandra.#** indicando la almohadilla que se puede sustituir por 0 o más caracteres.
 
 #### Base de datos: Apache Cassandra
-Cassandra es una base de datos NoSQL con modelo de almacenamiento <clave-valor>. Sus tablas se deberán crear asociándose a un *keyspace*, bien ya a uno existente o bien a uno creado por el usuario.
+Cassandra es una base de datos NoSQL con modelo de almacenamiento pares *clave-valor*. Sus tablas se deberán crear asociándose a un *keyspace*, bien ya a uno existente o bien a uno creado por el usuario.
 Nuestra aplicación leerá de un keyspace concreto, por lo cual necesita ser creado al iniciar Cassandra. Cassandra será levantada dentro de otro contenedor docker en el fichero `docker-compose.yml`. Como en Cassandra no se pueden ejecutar comandos hasta que la base de datos esté completamente levantada, en el fichero `docker-compose.yml` se define un segundo contenedor de cassandra que, al levantarse y esperar a que el anterior termine de levantarse, ejecutará un comando para copiar dentro del contenedor un fichero `init.cql`, que se encuentra en la misma carpeta que el `docker-compose.yml`, que creará el keypsace que se haya definido dentro del fichero.
 La tabla será creada por la aplicación al iniciar, siempre y cuando ésta no exista previamente.
 
